@@ -4,20 +4,24 @@ use rand::Rng;
 use std::cmp::Ordering;
 
 fn main() {
-    let mut ferris = Ferris::new(24);
+    let mut ferris = Ferris::new(1, 101);
     ferris.ask();
 }
 
 struct Ferris {
+    from: i32,
+    to: i32,
     number: i32,
     width: usize
 }
 
 impl Ferris {
-    fn new(width:usize) -> Ferris {
+    fn new(from: i32, to: i32) -> Ferris {
         Ferris {
-            width: width,
-            number: rand::thread_rng().gen_range(1, 11)
+            width: 24,
+            from: from,
+            to: to,
+            number: rand::thread_rng().gen_range(from, to)
         }
     }
 
@@ -27,7 +31,7 @@ impl Ferris {
     }
     
     pub fn ask(&mut self){
-        self.say("Guess a number in 1-10");
+        self.say(&format!("Guess a number in {}-{}", self.from, self.to - 1)[..]);
         let stdin = stdin();
         loop {
             let mut input = String::new();

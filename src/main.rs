@@ -1,10 +1,12 @@
 use ferris_says::say;
-use std::io::{stdout, BufWriter};
+use std::io::{stdin, stdout, BufWriter};
 
 fn main() {
+    let stdin = stdin();
+    let mut message = String::new();
+    stdin.read_line(&mut message).expect("Failed to readline");
     let stdout = stdout();
-    let out = b"Hello fellow Rustaceans!";
     let width = 24;
     let mut writer = BufWriter::new(stdout.lock());
-    say(out, width, &mut writer).unwrap();
+    say(message.as_bytes(), width, &mut writer).unwrap();
 }
